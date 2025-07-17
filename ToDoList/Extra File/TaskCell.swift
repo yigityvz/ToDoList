@@ -12,7 +12,7 @@ class TaskCell: UITableViewCell {
     
     let titleLabel: UILabel = {
             let label = UILabel()
-            label.font = UIFont.systemFont(ofSize: 16)
+            label.font = UIFont.systemFont(ofSize: 20)
             label.textColor = .darkGray
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
@@ -20,7 +20,7 @@ class TaskCell: UITableViewCell {
     
     let timeLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 13)
+        label.font = UIFont.systemFont(ofSize: 15)
         label.textColor = .gray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -67,7 +67,7 @@ class TaskCell: UITableViewCell {
                 
                 timeLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 2),
                 timeLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-                timeLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
+                timeLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
                 
             ])
         

@@ -2,6 +2,16 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Giriş Yap"
+        label.font = UIFont.systemFont(ofSize: 32, weight: .bold)
+        label.textColor = .systemBlue
+        label.textAlignment = .center
+        return label
+    }()
+    
      let emailTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Email"
@@ -36,11 +46,13 @@ class LoginViewController: UIViewController {
         
         emailTextField.text = UserDefaults.standard.string(forKey: "email")
         loginButton.addTarget(self, action: #selector(loginTapped), for: .touchUpInside)
+        hideKeyboardWhenTappedAround()
+    
     }
     
     
     func setupLayout() {
-        [emailTextField, passwordTextField, loginButton].forEach { item in
+        [emailTextField, passwordTextField, loginButton,titleLabel].forEach { item in
             view.addSubview(item)
             item.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -57,7 +69,12 @@ class LoginViewController: UIViewController {
             loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 24),
             loginButton.leadingAnchor.constraint(equalTo: emailTextField.leadingAnchor),
             loginButton.trailingAnchor.constraint(equalTo: emailTextField.trailingAnchor),
-            loginButton.heightAnchor.constraint(equalToConstant: 44)
+            loginButton.heightAnchor.constraint(equalToConstant: 44),
+            
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            titleLabel.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
@@ -108,7 +125,18 @@ class LoginViewController: UIViewController {
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: email)
     }
+    
+    func hideKeyboardWhenTappedAround() {
+            let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+            tap.cancelsTouchesInView = false
+            view.addGestureRecognizer(tap)
+        }
+
+        @objc func dismissKeyboard() {
+            view.endEditing(true)
+        }
+}
 
     
-}
+
 
